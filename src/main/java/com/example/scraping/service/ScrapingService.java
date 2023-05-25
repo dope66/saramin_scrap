@@ -69,34 +69,29 @@ public class ScrapingService {
      * 크롤링 데이터 관리
      * */
     public ScrapDto parseJobElement(Element jobElement) {
-        Element titleElement = jobElement.select("div.item_recruit >div.area_job > h2.job_tit > a").first();
+
+        Element titleElement = jobElement.selectFirst("div.area_job > h2.job_tit > a");
         String title = titleElement.text();
-        Element companyElement = jobElement.select("div.item_recruit > div.area_corp > strong.corp_name > a").first();
-        String company = (companyElement != null) ? companyElement.text() : "N/A"; // null일 경우 대체값을 지정합니다.
-        Element linkElement = jobElement.select("div.item_recruit> div.area_job > h2.job_tit > a ").first();
+
+        Element companyElement = jobElement.selectFirst("div.area_corp > strong.corp_name > a");
+        String company = (companyElement != null) ? companyElement.text() : "N/A";
+
+        Element linkElement = titleElement;
         String href = "https://www.saramin.co.kr" + linkElement.attr("href");
-        Element deadlineElement = jobElement.select("div.item_recruit > div.area_job > div.job_date > span.date").first();
+
+        Element deadlineElement = jobElement.selectFirst("div.area_job > div.job_date > span.date");
         String deadline = deadlineElement.text();
         Elements locationElements = jobElement.select("div.job_condition > span");
-        String location = null;
-        String experience = null;
-        String requirement = null;
-        String jobtype = null;
-        for (int i = 0; i < locationElements.size(); i++) {
-            Element locationElement = locationElements.get(i);
-            // i 변수를 기준으로 원하는 값을 가져옵니다.
-            if (i == 0) {
-                location = locationElement.text();
-            } else if (i == 1) {
-                experience = locationElement.text();
-            } else if (i == 2) {
-                requirement = locationElement.text();
-            } else if (i == 3) {
-                jobtype = locationElement.text();
-            }
-        }
+        String location = getElementText(locationElements, 0);
+        String experience = getElementText(locationElements, 1);
+        String requirement = getElementText(locationElements, 2);
+        String jobtype = getElementText(locationElements, 3);
+
 
         return new ScrapDto(title, href, company, deadline, location, experience, requirement, jobtype);
+    }
+    private String getElementText(Elements elements, int index) {
+        return (index >= 0 && index < elements.size()) ? elements.get(index).text() : null;
     }
 }
 

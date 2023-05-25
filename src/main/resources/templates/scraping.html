@@ -1,12 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>사람인 스크래핑</title>
+    <title>스크랩핑 데이터</title>
 </head>
 <body>
-<h1>스크래핑 한 데이터 모아보기</h1>
-
-
+<h1>Scraping Results</h1>
+<table th:border="1">
+    <thead>
+    <tr>
+        <th>Title</th>
+        <th>Link</th>
+        <th>Company</th>
+        <th>DeadLine</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="job : ${jobs}">
+        <td th:text="${job.title}"></td>
+        <td>
+            <a th:href="${job.href}"> 홈페이지로 가기</a>
+        </td>
+        <td th:text="${job.company}"></td>
+        <td th:text="${job.deadline}"></td>
+    </tr>
+    </tbody>
+</table>
 </body>
 </html>

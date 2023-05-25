@@ -9,12 +9,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ScrapDto {
     private String title;
+    private String href;
     private String company;
-    private String saraminurl;
     private String deadline;
-    private String location;
-    private String experience;
-    private String requirement;
-    private String jobtype;
+//    private String location;
+//    private String experience;
+//    private String requirement;
+//    private String jobtype;
 
 }

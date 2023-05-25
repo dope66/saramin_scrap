@@ -11,13 +11,13 @@ public class ScrapEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
+    private String href;
     private String company;
-    private String saraminurl;
     private String deadline;
-    private String location;
-    private String experience;
-    private String requirement;
-    private String jobtype;
+//    private String location;
+//    private String experience;
+//    private String requirement;
+//    private String jobtype;
 
 
 }

@@ -14,10 +14,10 @@ public class ScrapEntity {
     private String href;
     private String company;
     private String deadline;
-//    private String location;
-//    private String experience;
-//    private String requirement;
-//    private String jobtype;
+    private String location;
+    private String experience;
+    private String requirement;
+    private String jobtype;
 
 
 }

@@ -36,8 +36,26 @@ public class ScrapingController {
                     String href = "https://www.saramin.co.kr" + linkElement.attr("href");
                     Element deadlineElement = jobElement.select("div.item_recruit > div.area_job > div.job_date > span.date").first();
                     String deadline = deadlineElement.text();
+                    Elements locationElements = jobElement.select("div.job_condition > span");
+                    String location = null;
+                    String experience = null;
+                    String requirement = null;
+                    String jobtype = null;
+                    for (int i = 0; i < locationElements.size(); i++) {
+                        Element locationElement = locationElements.get(i);
+                        // i 변수를 기준으로 원하는 값을 가져옵니다.
+                        if (i == 0) {
+                            location = locationElement.text();
+                        } else if (i == 1) {
+                            experience = locationElement.text();
+                        } else if (i == 2) {
+                            requirement = locationElement.text();
+                        } else if (i == 3) {
+                            jobtype = locationElement.text();
+                        }
+                    }
 
-                    ScrapDto scrapDto = new ScrapDto(title, href, company, deadline);
+                    ScrapDto scrapDto = new ScrapDto(title, href, company, deadline,location,experience,requirement,jobtype);
                     jobs.add(scrapDto);
                 }
             } catch (IOException e) {

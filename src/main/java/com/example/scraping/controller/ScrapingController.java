@@ -21,8 +21,10 @@ public class ScrapingController {
 
     @GetMapping("/scraping")
     public String scraping(@RequestParam("keyword") String keyword,
-                           @RequestParam(value = "allpage", required = false) Integer allpage, Model model) {
-        List<ScrapDto> jobs = scrapingService.scrapeJobs(keyword, allpage);
+                           @RequestParam(value = "allpage", required = false) Integer allpage,
+                           @RequestParam(value="career") String career,
+                           Model model) {
+        List<ScrapDto> jobs = scrapingService.scrapeJobs(keyword, allpage,career);
         model.addAttribute("jobs", jobs);
         return "scraping";
     }

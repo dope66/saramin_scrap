@@ -1,4 +1,4 @@
-package com.example.scraping.domain;
+package com.example.scraping.domain.scrap;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

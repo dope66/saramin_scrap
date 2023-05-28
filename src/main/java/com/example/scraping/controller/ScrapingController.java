@@ -1,9 +1,7 @@
 package com.example.scraping.controller;
 
-import com.example.scraping.domain.ScrapDto;
+import com.example.scraping.domain.scrap.ScrapDto;
 import com.example.scraping.service.ScrapingService;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

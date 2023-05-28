@@ -23,7 +23,7 @@
     <tr th:each="job : ${jobs}">
         <td th:text="${job.title}"></td>
         <td>
-            <a th:href="${job.href}"> 홈페이지로 가기</a>
+            <a th:href="${job.href}" target="_blank"> 홈페이지로 가기</a>
         </td>
         <td th:text="${job.company}"></td>
         <td th:text="${job.deadline}"></td>

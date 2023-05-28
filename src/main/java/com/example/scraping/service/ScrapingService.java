@@ -1,6 +1,6 @@
 package com.example.scraping.service;
 
-import com.example.scraping.domain.ScrapDto;
+import com.example.scraping.domain.scrap.ScrapDto;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -18,7 +18,7 @@ public class ScrapingService {
     public List<ScrapDto> scrapeJobs(String keyword, Integer allpage, String career) {
         List<ScrapDto> jobs = new ArrayList<>();
         for (int page = 1; page <= allpage; page++) {
-            String url = buildUrl(keyword,page,career);
+            String url = buildUrl(keyword, page, career);
             try {
 //                연결 시도
                 Connection connection = Jsoup.connect(url)
@@ -42,17 +42,18 @@ public class ScrapingService {
 
         return jobs;
     }
+
     /*
-    * build url
-    * 1  = 신입
-    * 2 = 경력
-    * 3 = 전체
-    * */
-    private String buildUrl(String keyword , int page, String career){
+     * build url
+     * 1  = 신입
+     * 2 = 경력
+     * 3 = 전체
+     * */
+    private String buildUrl(String keyword, int page, String career) {
         String baseUrl = "https://www.saramin.co.kr/zf_user/search/recruit";
         String url = null;
         if (career.equals("1")) {
-            url =  baseUrl + "?searchType=search&searchword=" +
+            url = baseUrl + "?searchType=search&searchword=" +
                     keyword + "&company_cd=0%2C1%2C2%2C3%2C4%2C5%2C6%2C7%2C9%2C10&exp_cd=1&panel_type=&search_optional_item=y&search_done=y&panel_count=y&preview=y&recruitPage=" +
                     page + "&recruitSort=relation&recruitPageCount=10";
         } else if (career.equals("2")) {
@@ -65,6 +66,7 @@ public class ScrapingService {
         }
         return url;
     }
+
     /*
      * 크롤링 데이터 관리
      * */
@@ -77,7 +79,9 @@ public class ScrapingService {
         String company = (companyElement != null) ? companyElement.text() : "N/A";
 
         Element linkElement = titleElement;
+        linkElement.attr("target", "_blank"); // target="_blank" 추가
         String href = "https://www.saramin.co.kr" + linkElement.attr("href");
+
 
         Element deadlineElement = jobElement.selectFirst("div.area_job > div.job_date > span.date");
         String deadline = deadlineElement.text();
@@ -87,9 +91,14 @@ public class ScrapingService {
         String requirement = getElementText(locationElements, 2);
         String jobtype = getElementText(locationElements, 3);
 
+        Elements job_sectorElement  = jobElement.select("div.item_recruit > div.area_job > div.job_sector > a ");
+        String job_sector=(job_sectorElement).text();
+        System.out.println(job_sector);
+
 
         return new ScrapDto(title, href, company, deadline, location, experience, requirement, jobtype);
     }
+
     private String getElementText(Elements elements, int index) {
         return (index >= 0 && index < elements.size()) ? elements.get(index).text() : null;
     }

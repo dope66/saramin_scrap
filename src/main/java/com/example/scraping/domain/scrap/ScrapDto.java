@@ -1,4 +1,4 @@
-package com.example.scraping.domain;
+package com.example.scraping.domain.scrap;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

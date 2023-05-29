@@ -1,10 +1,13 @@
 package com.example.scraping.domain.user;
 
+import com.example.scraping.domain.scrap.ScrapEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Entity
 @Data
@@ -21,9 +24,8 @@ public class User {
 
     @Column(nullable = false)
     private String password;
-
-    @Column(nullable = true)
-    private String userScrap;
+    @OneToMany(mappedBy = "user")
+    private List<ScrapEntity> scrapEntity;
 
 
 }

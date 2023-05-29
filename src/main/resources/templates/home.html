@@ -21,6 +21,7 @@
     로그인이 필요한 상태 입니다.
 </div>
 <div th:if="${username}!=anonymousUser">
+    <a href="/usr/page">마이 페이지</a>
     <a href="/usr/logout">로그 아웃</a> <br>
     <div>
         <span th:text="${username}"></span>님 환영합니다 !

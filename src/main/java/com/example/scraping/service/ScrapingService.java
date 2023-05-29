@@ -48,6 +48,7 @@ public class ScrapingService {
      * 1  = 신입
      * 2 = 경력
      * 3 = 전체
+     * default = 3
      * */
     private String buildUrl(String keyword, int page, String career) {
         String baseUrl = "https://www.saramin.co.kr/zf_user/search/recruit";

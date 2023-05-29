@@ -1,9 +1,7 @@
 package com.example.scraping.domain.scrap;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.example.scraping.domain.user.User;
+import jakarta.persistence.*;
 
 @Entity
 public class ScrapEntity {
@@ -18,6 +16,9 @@ public class ScrapEntity {
     private String experience;
     private String requirement;
     private String jobtype;
+    @ManyToOne
+    @JoinColumn(name="user_id")
+    private User user;
 
 
 }

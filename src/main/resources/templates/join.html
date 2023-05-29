@@ -6,8 +6,8 @@
 </head>
 <body>
 <h1> User Join</h1>
-<form th:action="@{/joinProc}" th:object="${userDto}" th:method="post">
-    User ID : <input type="text" id="userId" name="userId"><br>
+<form th:action="@{/usr/joinProc}" th:object="${userDto}" th:method="post">
+    User ID : <input type="text" id="username" name="username"><br>
     Password : <input type="password" id ="password" name="password" >
     <input type="submit">
 </form>

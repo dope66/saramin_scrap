@@ -7,15 +7,26 @@
 <body>
 <h1>스크랩핑 한 데이터 모아보기</h1>
 <form action="/scraping" method="get">
-    keyword :  <input type="text" id="keyword" name="keyword"><br><br>
+    keyword : <input type="text" id="keyword" name="keyword"><br><br>
     page : <input type="text" id="allpage" name="allpage"><br><br>
     경력 선택 : <input type="radio" name="career" class="career" value="1"> 신입
     <input type="radio" name="career" class="career" value="2">경력
-    <input type="radio" name="career" class="career" value="3">전체
+    <input type="radio" name="career" class="career" checked value="3">전체
 
     <input type="submit">
 </form>
-<a href="/join">회원가입</a>
-<a href="/login">로그인</a>
+<a href="/usr/join">회원가입</a>
+<div th:if="${username}==anonymousUser">
+    <a href="/usr/login">로그인</a> <br>
+    로그인이 필요한 상태 입니다.
+</div>
+<div th:if="${username}!=anonymousUser">
+    <a href="/usr/logout">로그 아웃</a> <br>
+    <div>
+        <span th:text="${username}"></span>님 환영합니다 !
+    </div>
+
+</div>
+
 </body>
 </html>

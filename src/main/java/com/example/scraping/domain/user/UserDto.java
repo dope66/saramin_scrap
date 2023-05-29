@@ -2,19 +2,21 @@ package com.example.scraping.domain.user;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Data
 @NoArgsConstructor
 public class UserDto {
-    private String userId;
+    private String username;
     private String password;
     private String userScrap;
 
-    public User toEntity(){
+    public User toEntity(PasswordEncoder passwordEncoder){
 
         return User.builder()
-                .userId(userId)
-                .password(password)
+                .username(username)
+                .password(passwordEncoder.encode(password))
                 .build();
     }
 

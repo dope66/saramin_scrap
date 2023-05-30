@@ -1,5 +1,7 @@
 package com.example.scraping.domain.scrap;
 
+import com.example.scraping.domain.user.User;
+import com.example.scraping.domain.user.UserDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

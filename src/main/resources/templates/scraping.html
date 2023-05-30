@@ -31,6 +31,22 @@
         <td th:text="${job.experience}"></td>
         <td th:text="${job.requirement}"></td>
         <td th:text="${job.jobtype}"></td>
+        <td>
+            <form th:action="@{/scraping/save}" method="POST">
+                <input type="hidden" name="title" th:value="${job.title}">
+                <input type="hidden" name="href" th:value="${job.href}">
+                <input type="hidden" name="company" th:value="${job.company}">
+                <input type="hidden" name="deadline" th:value="${job.deadline}">
+                <input type="hidden" name="location" th:value="${job.location}">
+                <input type="hidden" name="experience" th:value="${job.experience}">
+                <input type="hidden" name="requirement" th:value="${job.requirement}">
+                <input type="hidden" name="jobtype" th:value="${job.jobtype}">
+
+                <button type="submit">스크랩 저장</button>
+            </form>
+
+
+        </td>
 
     </tr>
     </tbody>

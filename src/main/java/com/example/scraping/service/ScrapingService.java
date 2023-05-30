@@ -1,19 +1,33 @@
 package com.example.scraping.service;
 
 import com.example.scraping.domain.scrap.ScrapDto;
+import com.example.scraping.domain.scrap.ScrapEntity;
+import com.example.scraping.domain.user.User;
+import com.example.scraping.repository.ScrapRepository;
+import com.example.scraping.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class ScrapingService {
+
+    @Autowired
+    private final UserRepository userRepository;
+
+    @Autowired
+    private final ScrapRepository scrapRepository;
 
     public List<ScrapDto> scrapeJobs(String keyword, Integer allpage, String career) {
         List<ScrapDto> jobs = new ArrayList<>();
@@ -91,13 +105,35 @@ public class ScrapingService {
         String experience = getElementText(locationElements, 1);
         String requirement = getElementText(locationElements, 2);
         String jobtype = getElementText(locationElements, 3);
-
-        Elements job_sectorElement  = jobElement.select("div.item_recruit > div.area_job > div.job_sector > a ");
-        String job_sector=(job_sectorElement).text();
-        System.out.println(job_sector);
-
+//        직무
+//        Elements job_sectorElement  = jobElement.select("div.item_recruit > div.area_job > div.job_sector > a ");
+//        String job_sector=(job_sectorElement).text();
 
         return new ScrapDto(title, href, company, deadline, location, experience, requirement, jobtype);
+    }
+
+
+
+    public String saveScrap(String title, String href, String company, String deadline, String location, String experience, String requirement, String jobtype, String username) {
+
+        Optional<User> optionalUser = userRepository.findByUsername(username);
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+
+            // 중복 스크랩 체크
+            if (scrapRepository.existsByHrefAndUser(href, user)) {
+                // 이미 스크랩된 경우 처리 로직
+                return "redirect:/scraping?duplicate";
+            }
+            // id 값을 초기화 시키지 않아 기본값이 들어가게된다.
+            ScrapEntity scrapEntity = new ScrapEntity(null, title, href, company, deadline, location, experience, requirement, jobtype, user);
+            scrapRepository.save(scrapEntity);
+
+
+        }
+
+        return "redirect:/";
+
     }
 
     private String getElementText(Elements elements, int index) {

@@ -57,7 +57,7 @@ public class UserController {
         Optional<User> userOptional = userRepository.findByUsername(username);
         if(userOptional.isPresent()) {
             User user = userOptional.get();
-            List<ScrapEntity> myScraps = user.getScrapEntity();
+            List<ScrapEntity> myScraps = user.getScraps();
             model.addAttribute("user", user);
             model.addAttribute("myScraps", myScraps);
             return "userPage";

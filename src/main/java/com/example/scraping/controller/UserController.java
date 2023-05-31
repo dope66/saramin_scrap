@@ -25,7 +25,6 @@ import java.util.Optional;
 public class UserController {
     @Autowired
     private final UserService userService;
-    private final UserRepository userRepository;
 
     @GetMapping("/join")
     public String showjoin(Model model) {
@@ -53,13 +52,11 @@ public class UserController {
         return "logout";
     }
     @GetMapping("/page")
-    public String userpage(Model model, Principal principal){
-        String username = principal.getName();
-        Optional<User> userOptional = userRepository.findByUsername(username);
-        List<ScrapEntity> scraps = userOptional.get().getScraps();
-        if(userOptional.isPresent()) {
-            User user = userOptional.get();
-            List<ScrapEntity> myScraps = user.getScraps();
+    public String userpage(Model model){
+        String username = userService.getUsername();
+        User user = userService.getUserByUsername(username);
+        if(user !=null) {
+            List<ScrapEntity> scraps = user.getScraps();
             model.addAttribute("user", user);
             model.addAttribute("scraps", scraps);
             return "userPage";

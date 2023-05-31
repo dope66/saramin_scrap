@@ -3,6 +3,7 @@ package com.example.scraping.controller;
 import com.example.scraping.domain.scrap.ScrapEntity;
 import com.example.scraping.domain.user.User;
 import com.example.scraping.domain.user.UserDto;
+import com.example.scraping.repository.ScrapRepository;
 import com.example.scraping.repository.UserRepository;
 import com.example.scraping.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -55,11 +56,12 @@ public class UserController {
     public String userpage(Model model, Principal principal){
         String username = principal.getName();
         Optional<User> userOptional = userRepository.findByUsername(username);
+        List<ScrapEntity> scraps = userOptional.get().getScraps();
         if(userOptional.isPresent()) {
             User user = userOptional.get();
             List<ScrapEntity> myScraps = user.getScraps();
             model.addAttribute("user", user);
-            model.addAttribute("myScraps", myScraps);
+            model.addAttribute("scraps", scraps);
             return "userPage";
         }else{
             return "login";

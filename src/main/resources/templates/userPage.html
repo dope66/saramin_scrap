@@ -5,6 +5,7 @@
     <title> MY PAGE</title>
 </head>
 <body>
+<h1><a href="/">HOME</a></h1>
 <table th:border="1">
     <thead>
     <tr>
@@ -14,7 +15,33 @@
     <tbody>
     <tr>
         <td th:text="${user.username}"></td>
-
+    </tr>
+    </tbody>
+</table>
+<h2>Scrap List</h2>
+<table th:border="1">
+    <thead>
+    <tr>
+        <th>Title</th>
+        <th>Link</th>
+        <th>company</th>
+        <th>deadline</th>
+        <th>experience</th>
+        <th>requirement</th>
+        <th>jobtype</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="scrap : ${scraps}">
+        <td th:text="${scrap.title}"></td>
+        <td>
+            <a th:href="${scrap.href}" target="_blank"> 홈페이지로 가기</a>
+        </td>
+        <td th:text="${scrap.company}"></td>
+        <td th:text="${scrap.deadline}"></td>
+        <td th:text="${scrap.experience}"></td>
+        <td th:text="${scrap.requirement}"></td>
+        <td th:text="${scrap.jobtype}"></td>
     </tr>
     </tbody>
 </table>

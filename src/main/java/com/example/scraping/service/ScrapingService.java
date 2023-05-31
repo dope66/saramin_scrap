@@ -28,7 +28,7 @@ public class ScrapingService {
 
     @Autowired
     private final ScrapRepository scrapRepository;
-
+//    리스트 불러온다.
     public List<ScrapDto> scrapeJobs(String keyword, Integer allpage, String career) {
         List<ScrapDto> jobs = new ArrayList<>();
         for (int page = 1; page <= allpage; page++) {
@@ -58,7 +58,7 @@ public class ScrapingService {
     }
 
     /*
-     * build url
+     * build url 경력선택시 url변경한다.
      * 1  = 신입
      * 2 = 경력
      * 3 = 전체
@@ -83,7 +83,7 @@ public class ScrapingService {
     }
 
     /*
-     * 크롤링 데이터 관리
+     * 스크래핑 데이터 관리
      * */
     public ScrapDto parseJobElement(Element jobElement) {
 
@@ -113,7 +113,7 @@ public class ScrapingService {
     }
 
 
-
+    //스크랩 저장
     public String saveScrap(String title, String href, String company, String deadline, String location, String experience, String requirement, String jobtype, String username) {
 
         Optional<User> optionalUser = userRepository.findByUsername(username);

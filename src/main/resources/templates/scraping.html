@@ -46,12 +46,8 @@
                 <input type="hidden" name="experience" th:value="${job.experience}">
                 <input type="hidden" name="requirement" th:value="${job.requirement}">
                 <input type="hidden" name="jobtype" th:value="${job.jobtype}">
-                    <div th:if="${username}==anonymousUser">
-                        <a href="/usr/login">로그인 하기</a>
-                    </div>
-                    <div th:if="${username}!=anonymousUser">
-                        <button type="submit" class="save-button">스크랩 저장</button>
-                    </div>
+                <button type="submit" class="save-button">스크랩 저장</button>
+
 
             </form>
 

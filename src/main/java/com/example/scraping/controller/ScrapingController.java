@@ -1,10 +1,6 @@
 package com.example.scraping.controller;
 
 import com.example.scraping.domain.scrap.ScrapDto;
-import com.example.scraping.domain.scrap.ScrapEntity;
-import com.example.scraping.domain.user.User;
-import com.example.scraping.repository.ScrapRepository;
-import com.example.scraping.repository.UserRepository;
 import com.example.scraping.service.ScrapingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
-import java.util.Optional;
+
 
 @Controller
 @RequiredArgsConstructor

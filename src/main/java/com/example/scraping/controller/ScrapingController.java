@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 import java.util.Optional;
@@ -44,12 +45,20 @@ public class ScrapingController {
                             @RequestParam("experience") String experience,
                             @RequestParam("requirement") String requirement,
                             @RequestParam("jobtype") String jobtype,
-                            Authentication authentication
+                            Authentication authentication,
+                            RedirectAttributes redirectAttributes
                            ) {
+        if (authentication == null || !authentication.isAuthenticated()) {
+            return "redirect:/usr/login"; // 로그인 화면으로 리다이렉트
+        }
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         String username = userDetails.getUsername();
+        String result = scrapingService.saveScrap(title, href, company, deadline, location, experience, requirement, jobtype, username);
+        if (result.equals("duplicate")) {
+            redirectAttributes.addAttribute("error", "duplicate");
+        }
 
-        return scrapingService.saveScrap(title, href, company, deadline, location, experience, requirement, jobtype, username);
+        return "redirect:/";
     }
 
 

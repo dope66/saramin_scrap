@@ -1,0 +1,84 @@
+/* styles.css */
+
+/* 배경 색상과 폰트 스타일 설정 */
+body {
+    background-color: #f8f9fa;
+    font-family: Arial, sans-serif;
+}
+
+/* 컨테이너 스타일 설정 */
+.container {
+    max-width: 500px;
+    margin: 0 auto;
+    padding-top: 100px;
+}
+.error-message {
+    color: red;
+    margin-bottom: 10px;
+}
+.container h1 {
+    font-size: 28px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.container .form-group {
+    margin-bottom: 20px;
+}
+
+.container .btn {
+    width: 100%;
+}
+
+.container .login-message {
+    margin-top: 20px;
+    text-align: center;
+    color: #777;
+}
+
+.container .welcome-message {
+    margin-top: 20px;
+    text-align: center;
+}
+h1 {
+    color: #333;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background-color: #f8f8f8;
+    font-weight: bold;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f8f8f8;
+}
+
+tbody tr:hover {
+    background-color: #f0f0f0;
+}
+
+.save-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.save-button:hover {
+    background-color: #0056b3;
+}

@@ -115,7 +115,6 @@ public class ScrapingService {
 
     //스크랩 저장
     public String saveScrap(String title, String href, String company, String deadline, String location, String experience, String requirement, String jobtype, String username) {
-
         Optional<User> optionalUser = userRepository.findByUsername(username);
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
@@ -123,18 +122,16 @@ public class ScrapingService {
             // 중복 스크랩 체크
             if (scrapRepository.existsByHrefAndUser(href, user)) {
                 // 이미 스크랩된 경우 처리 로직
-                return "redirect:/scraping?duplicate";
+                return "duplicate";
             }
-            // id 값을 초기화 시키지 않아 기본값이 들어가게된다.
+
             ScrapEntity scrapEntity = new ScrapEntity(null, title, href, company, deadline, location, experience, requirement, jobtype, user);
             scrapRepository.save(scrapEntity);
-
-
         }
 
-        return "redirect:/";
-
+        return "success";
     }
+
 
     private String getElementText(Elements elements, int index) {
         return (index >= 0 && index < elements.size()) ? elements.get(index).text() : null;

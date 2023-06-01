@@ -3,31 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <title>사람인 스크랩핑</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.0/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
-<h1>스크랩핑 한 데이터 모아보기</h1>
-<form action="/scraping" method="get">
-    keyword : <input type="text" id="keyword" name="keyword"><br><br>
-    page : <input type="text" id="allpage" name="allpage"><br><br>
-    경력 선택 : <input type="radio" name="career" class="career" value="1"> 신입
-    <input type="radio" name="career" class="career" value="2">경력
-    <input type="radio" name="career" class="career" checked value="3">전체
+<div class="container">
+    <h1>스크랩핑 한 데이터 모아보기</h1>
 
-    <input type="submit">
-</form>
-<a href="/usr/join">회원가입</a>
-<div th:if="${username}==anonymousUser">
-    <a href="/usr/login">로그인</a> <br>
-    로그인이 필요한 상태 입니다.
-</div>
-<div th:if="${username}!=anonymousUser">
-    <a href="/usr/page">마이 페이지</a>
-    <a href="/usr/logout">로그 아웃</a> <br>
-    <div>
-        <span th:text="${username}"></span>님 환영합니다 !
+    <form action="/scraping" method="get">
+        <div class="form-group">
+            <label for="keyword">Keyword:</label>
+            <input type="text" id="keyword" name="keyword" class="form-control">
+        </div>
+
+        <div class="form-group">
+            <label for="allpage">Page:</label>
+            <input type="text" id="allpage" name="allpage" class="form-control">
+        </div>
+
+        <div class="form-group">
+            <label>경력 선택:</label><br>
+            <div class="form-check form-check-inline">
+                <input type="radio" name="career" id="career1" class="form-check-input" value="1">
+                <label for="career1" class="form-check-label">신입</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input type="radio" name="career" id="career2" class="form-check-input" value="2">
+                <label for="career2" class="form-check-label">경력</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input type="radio" name="career" id="career3" class="form-check-input" value="3" checked>
+                <label for="career3" class="form-check-label">전체</label>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+    <a href="/usr/join" class="btn btn-secondary">회원가입</a>
+
+    <div th:if="${username}==anonymousUser">
+        <a href="/usr/login" class="btn btn-secondary">로그인</a>
+        <div class="login-message">
+            로그인이 필요한 상태입니다.
+        </div>
     </div>
 
+    <div th:if="${username}!=anonymousUser">
+        <a href="/usr/page" class="btn btn-secondary">마이 페이지</a>
+        <a href="/usr/logout" class="btn btn-secondary">로그 아웃</a>
+        <div class="welcome-message">
+            <span th:text="${username}"></span>님 환영합니다!
+        </div>
+    </div>
 </div>
 
+<!-- Bootstrap JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.0/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

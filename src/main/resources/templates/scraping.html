@@ -3,6 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>스크랩핑 데이터</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.0/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
 <h1>Scraping Results</h1>
@@ -17,6 +21,7 @@
         <th>Experience</th>
         <th>Requirement</th>
         <th>Jobtype</th>
+        <th>스크랩 여부</th>
     </tr>
     </thead>
     <tbody>
@@ -41,8 +46,13 @@
                 <input type="hidden" name="experience" th:value="${job.experience}">
                 <input type="hidden" name="requirement" th:value="${job.requirement}">
                 <input type="hidden" name="jobtype" th:value="${job.jobtype}">
+                    <div th:if="${username}==anonymousUser">
+                        <a href="/usr/login">로그인 하기</a>
+                    </div>
+                    <div th:if="${username}!=anonymousUser">
+                        <button type="submit" class="save-button">스크랩 저장</button>
+                    </div>
 
-                <button type="submit">스크랩 저장</button>
             </form>
 
 

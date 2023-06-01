@@ -28,39 +28,50 @@ public class UserController {
 
     @GetMapping("/join")
     public String showjoin(Model model) {
-        model.addAttribute("userDto",new UserDto());
+        model.addAttribute("userDto", new UserDto());
         return "join";
     }
+
     @PostMapping("/joinProc")
-    public String dojoin(UserDto userDto, Model model ){
-        User newUser = userService.dojoin(userDto);
-        System.out.println("유저 아이디 생성 성공");
-        return "redirect:/";
+    public String dojoin(UserDto userDto, Model model) {
+        try{
+            User newUser = userService.dojoin(userDto);
+            System.out.println("유저 아이디 생성 성공");
+            model.addAttribute("successMessage", "회원 가입이 성공적으로 완료되었습니다.");
+            return "redirect:/";
+        }catch (IllegalStateException e){
+            model.addAttribute("errorMessage",e.getMessage());
+            model.addAttribute("userDto",userDto);
+            model.addAttribute("showErrorMessage", true);
+            return "join";
+        }
     }
 
     @GetMapping("/login")
     public String showlogin() {
         return "login";
     }
+
     @PostMapping("/login")
-    public String doLogin(){
+    public String doLogin() {
         return "login";
     }
 
     @GetMapping("/logout")
-    public String logout(){
+    public String logout() {
         return "logout";
     }
+
     @GetMapping("/page")
-    public String userpage(Model model){
+    public String userpage(Model model) {
         String username = userService.getUsername();
         User user = userService.getUserByUsername(username);
-        if(user !=null) {
+        if (user != null) {
             List<ScrapEntity> scraps = user.getScraps();
             model.addAttribute("user", user);
             model.addAttribute("scraps", scraps);
             return "userPage";
-        }else{
+        } else {
             return "login";
         }
     }

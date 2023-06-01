@@ -22,9 +22,9 @@ public class AuthService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
         Optional<User> user = userRepository.findByUsername(username);
-        if(user.isPresent()){
+        if (user.isPresent()) {
             return new UserDetail(user.get());
-        }else{
+        } else {
             throw new UsernameNotFoundException("아이디 또는 비밀번호가 일치 하지않습니다.");
         }
     }

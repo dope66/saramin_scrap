@@ -28,7 +28,8 @@ public class ScrapingService {
 
     @Autowired
     private final ScrapRepository scrapRepository;
-//    리스트 불러온다.
+
+    //    리스트 불러온다.
     public List<ScrapDto> scrapeJobs(String keyword, Integer allpage, String career) {
         List<ScrapDto> jobs = new ArrayList<>();
         for (int page = 1; page <= allpage; page++) {
@@ -111,7 +112,6 @@ public class ScrapingService {
 
         return new ScrapDto(title, href, company, deadline, location, experience, requirement, jobtype);
     }
-
 
     //스크랩 저장
     public String saveScrap(String title, String href, String company, String deadline, String location, String experience, String requirement, String jobtype, String username) {

@@ -19,10 +19,16 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public User dojoin(UserDto userDto){
+    public User dojoin(UserDto userDto) {
+        //이미 가입된 아이디인지 확인
+        Optional<User> existingUser = userRepository.findByUsername(userDto.getUsername());
+        if(existingUser.isPresent()){
+            throw  new IllegalStateException("이미 가입된 아이디 입니다.");
+        }
         return userRepository.save(userDto.toEntity(passwordEncoder));
 
     }
+
     public String getUsername() {
         SecurityContext context = SecurityContextHolder.getContext();
         Authentication authentication = context.getAuthentication();

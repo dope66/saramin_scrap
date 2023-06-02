@@ -33,6 +33,8 @@
         <th>experience</th>
         <th>requirement</th>
         <th>jobtype</th>
+        <th>Delete</th>
+
     </tr>
     </thead>
     <tbody>
@@ -46,6 +48,14 @@
         <td th:text="${scrap.experience}"></td>
         <td th:text="${scrap.requirement}"></td>
         <td th:text="${scrap.jobtype}"></td>
+        <td>
+            <form th:action="@{/usr/deleteScrap}" method="post">
+                <input type="hidden" name="scrapId" th:value="${scrap.id}"/>
+                <button type="submit">delete</button>
+            </form>
+        </td>
+
+
     </tr>
     </tbody>
 </table>

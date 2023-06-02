@@ -2,6 +2,7 @@ package com.example.scraping.service;
 
 import com.example.scraping.domain.user.User;
 import com.example.scraping.domain.user.UserDto;
+import com.example.scraping.repository.ScrapRepository;
 import com.example.scraping.repository.UserRepository;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +19,7 @@ import java.util.Optional;
 public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final ScrapRepository scrapRepository;
 
     public User dojoin(UserDto userDto) {
         //이미 가입된 아이디인지 확인
@@ -38,6 +40,9 @@ public class UserService {
     public User getUserByUsername(String username) {
         Optional<User> userOptional = userRepository.findByUsername(username);
         return userOptional.orElse(null);
+    }
+    public void deleteScrap(Long scrapId){
+        scrapRepository.deleteById(scrapId);
     }
 
 }

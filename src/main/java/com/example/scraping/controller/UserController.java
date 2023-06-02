@@ -75,4 +75,10 @@ public class UserController {
             return "login";
         }
     }
+    @PostMapping("/deleteScrap")
+    public String deleteScrap(Long scrapId){
+        userService.deleteScrap(scrapId);
+        return "redirect:/usr/page";
+
+    }
 }

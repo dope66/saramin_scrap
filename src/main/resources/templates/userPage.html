@@ -10,54 +10,56 @@
 </head>
 <body>
 <h1><a href="/">HOME</a></h1>
-<table th:border="1">
-    <thead>
-    <tr>
-        <th>회원 정보</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <td th:text="${user.username}"></td>
-    </tr>
-    </tbody>
-</table>
-<h2>Scrap List</h2>
-<table th:border="1">
-    <thead>
-    <tr>
-        <th>Title</th>
-        <th>Link</th>
-        <th>company</th>
-        <th>deadline</th>
-        <th>experience</th>
-        <th>requirement</th>
-        <th>jobtype</th>
-        <th>Delete</th>
+<div class="container">
+    <table th:border="1">
+        <thead>
+        <tr>
+            <th>회원 정보</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td th:text="${user.username}"></td>
+        </tr>
+        </tbody>
+    </table>
+    <h2>Scrap List</h2>
+    <table th:border="1">
+        <thead>
+        <tr>
+            <th>Title</th>
+            <th>Link</th>
+            <th>company</th>
+            <th>deadline</th>
+            <th>experience</th>
+            <th>requirement</th>
+            <th>jobtype</th>
+            <th>Delete</th>
 
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="scrap : ${scraps}">
-        <td th:text="${scrap.title}"></td>
-        <td>
-            <a th:href="${scrap.href}" target="_blank"> 홈페이지로 가기</a>
-        </td>
-        <td th:text="${scrap.company}"></td>
-        <td th:text="${scrap.deadline}"></td>
-        <td th:text="${scrap.experience}"></td>
-        <td th:text="${scrap.requirement}"></td>
-        <td th:text="${scrap.jobtype}"></td>
-        <td>
-            <form th:action="@{/usr/deleteScrap}" method="post">
-                <input type="hidden" name="scrapId" th:value="${scrap.id}"/>
-                <button type="submit">delete</button>
-            </form>
-        </td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="scrap : ${scraps}">
+            <td th:text="${scrap.title}"></td>
+            <td>
+                <a th:href="${scrap.href}" target="_blank"> 홈페이지로 가기</a>
+            </td>
+            <td th:text="${scrap.company}"></td>
+            <td th:text="${scrap.deadline}"></td>
+            <td th:text="${scrap.experience}"></td>
+            <td th:text="${scrap.requirement}"></td>
+            <td th:text="${scrap.jobtype}"></td>
+            <td>
+                <form th:action="@{/usr/deleteScrap}" method="post">
+                    <input type="hidden" name="scrapId" th:value="${scrap.id}"/>
+                    <button type="submit">delete</button>
+                </form>
+            </td>
 
 
-    </tr>
-    </tbody>
-</table>
+        </tr>
+        </tbody>
+    </table>
+</div>
 </body>
 </html>

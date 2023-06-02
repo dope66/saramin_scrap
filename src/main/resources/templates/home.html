@@ -13,6 +13,9 @@
 <body>
 <div class="container">
     <h1>스크랩핑 한 데이터 모아보기</h1>
+    <div th:if="${errorMessage}" class="alert alert-danger error-message" role="alert">
+        <span th:text="${errorMessage}"></span>
+    </div>
 
     <form action="/scraping" method="get">
         <div class="form-group">

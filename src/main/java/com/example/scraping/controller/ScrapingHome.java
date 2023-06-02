@@ -16,6 +16,10 @@ public class ScrapingHome {
     @GetMapping("/")
     public String home(Model model){
         model.addAttribute("username",userService.getUsername());
+        if (model.containsAttribute("errorMessage")) {
+            String errorMessage = (String) model.getAttribute("errorMessage");
+            model.addAttribute("errorMessage", errorMessage);
+        }
         return "home";
     }
 }

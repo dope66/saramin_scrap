@@ -24,14 +24,23 @@ public class ScrapingController {
     private final ScrapingService scrapingService;
 
     @GetMapping("/scraping")
-    public String scraping(@RequestParam("keyword") String keyword,
+    public String scraping(@RequestParam(value = "keyword", required = false) String keyword,
                            @RequestParam(value = "allpage", required = false) Integer allpage,
                            @RequestParam(value="career" ,defaultValue="3") String career,
-                           Model model) {
+                           Model model,
+                           RedirectAttributes redirectAttributes
+                           ) {
+        if (keyword == null || allpage == null) {
+            redirectAttributes.addFlashAttribute("errorMessage", "키워드와 페이지 수를 입력해야 합니다.");
+            return "redirect:/";
+        }
+
         List<ScrapDto> jobs = scrapingService.scrapeJobs(keyword, allpage,career);
         model.addAttribute("jobs", jobs);
         return "scraping";
     }
+
+
     @PostMapping("/scraping/save")
     public String saveScrap(@RequestParam("title") String title,
                             @RequestParam("href") String href,

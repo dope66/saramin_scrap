@@ -8,6 +8,7 @@ import com.example.scraping.repository.UserRepository;
 import com.example.scraping.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -47,7 +48,7 @@ public class UserController {
             User newUser = userService.dojoin(userDto);
             System.out.println("유저 아이디 생성 성공");
             model.addAttribute("successMessage", "회원 가입이 성공적으로 완료되었습니다.");
-            return "redirect:/";
+            return "redirect:/usr/login";
         }catch (IllegalStateException e){
             model.addAttribute("errorMessage",e.getMessage());
             model.addAttribute("userDto",userDto);
@@ -91,14 +92,19 @@ public class UserController {
 
     }
     @PostMapping("/deleteUser")
-    public String deleteUser(){
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String username = auth.getName();
+    public String deleteUser(HttpServletRequest request, HttpServletResponse response) {
+        String username = userService.getUsername();
         userService.deleteUserByUsername(username);
+
+        // 로그아웃 처리
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth != null) {
             new SecurityContextLogoutHandler().logout(request, response, auth);
         }
-        return "redirect:/usr/page";
+
+        return "redirect:/";
     }
+
+
 
 }

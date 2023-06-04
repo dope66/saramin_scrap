@@ -47,10 +47,11 @@
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 
-    <a href="/usr/join" class="btn btn-info">회원가입</a>
+
 
     <div th:if="${username}==anonymousUser">
         <a href="/usr/login" class="btn btn-success">로그인</a>
+        <a href="/usr/join" class="btn btn-info">회원가입</a>
         <div class="login-message">
             로그인이 필요한 상태입니다.
         </div>

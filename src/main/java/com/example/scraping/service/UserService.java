@@ -43,10 +43,10 @@ public class UserService {
     public void deleteScrap(Long scrapId){
         scrapRepository.deleteById(scrapId);
     }
-
-    public void deleteUserByUsername(String username){
-        Optional<User> userOptional  = userRepository.findByUsername(username);
-        userOptional.ifPresent(user -> userRepository.delete(user));
-
+    public void deleteUserByUsername(String username) {
+        Optional<User> user = userRepository.findByUsername(username);
+        user.ifPresent(userRepository::delete);
     }
+
+
 }

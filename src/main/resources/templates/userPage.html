@@ -22,9 +22,21 @@
         </thead>
         <tbody>
         <tr>
-            <td>사용자명:</td>
-            <td th:text="${user.username}"></td>
+            <th>사용자명</th>
+            <th>탈퇴 여부</th>
         </tr>
+        <tr>
+            <td th:text="${user.username}"></td>
+            <td>
+                <form th:action="@{/usr/deleteUser}" method="post">
+                    <button type="submit">탈퇴</button>
+
+                </form>
+            </td>
+
+
+        </tr>
+
         </tbody>
     </table>
     <h2>Scrap List</h2>

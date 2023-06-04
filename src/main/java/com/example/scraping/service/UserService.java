@@ -4,7 +4,6 @@ import com.example.scraping.domain.user.User;
 import com.example.scraping.domain.user.UserDto;
 import com.example.scraping.repository.ScrapRepository;
 import com.example.scraping.repository.UserRepository;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -45,4 +44,9 @@ public class UserService {
         scrapRepository.deleteById(scrapId);
     }
 
+    public void deleteUserByUsername(String username){
+        Optional<User> userOptional  = userRepository.findByUsername(username);
+        userOptional.ifPresent(user -> userRepository.delete(user));
+
+    }
 }

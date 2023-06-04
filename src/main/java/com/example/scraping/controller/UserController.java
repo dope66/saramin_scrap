@@ -6,8 +6,13 @@ import com.example.scraping.domain.user.UserDto;
 import com.example.scraping.repository.ScrapRepository;
 import com.example.scraping.repository.UserRepository;
 import com.example.scraping.service.UserService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,6 +30,10 @@ import java.util.Optional;
 public class UserController {
     @Autowired
     private final UserService userService;
+    @Autowired
+    private HttpServletRequest request;
+    @Autowired
+    private HttpServletResponse response;
 
     @GetMapping("/join")
     public String showjoin(Model model) {
@@ -81,4 +90,15 @@ public class UserController {
         return "redirect:/usr/page";
 
     }
+    @PostMapping("/deleteUser")
+    public String deleteUser(){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+        userService.deleteUserByUsername(username);
+        if (auth != null) {
+            new SecurityContextLogoutHandler().logout(request, response, auth);
+        }
+        return "redirect:/usr/page";
+    }
+
 }

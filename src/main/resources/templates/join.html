@@ -9,6 +9,31 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="/css/styles.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <style>
+        .error-message {
+            color: red;
+        }
+    </style>
+
+    <script th:inline="javascript">
+        $(document).ready(function() {
+            var validatorResult = /*[[${validatorResult}]]*/ {};
+
+            if (validatorResult.username) {
+                $('#username-error').text(validatorResult.username);
+                $('#username').addClass('is-invalid');
+                $('#username-error').show();
+            }
+
+            if (validatorResult.password) {
+                $('#password-error').text(validatorResult.password);
+                $('#password').addClass('is-invalid');
+                $('#password-error').show();
+            }
+        });
+    </script>
 
 </head>
 <body>
@@ -23,11 +48,13 @@
         <div class="form-group">
             <label for="username">User ID:</label>
             <input type="text" id="username" name="username" class="form-control">
+            <div id="username-error" class="error-message" style="display: none;"></div>
         </div>
 
         <div class="form-group">
             <label for="password">Password:</label>
             <input type="password" id="password" name="password" class="form-control">
+            <div id="password-error" class="error-message" style="display: none;"></div>
         </div>
 
         <button type="submit" class="btn btn-primary">Submit</button>

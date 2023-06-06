@@ -9,6 +9,7 @@ import com.example.scraping.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -16,6 +17,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.Mapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Controller
@@ -43,7 +47,14 @@ public class UserController {
     }
 
     @PostMapping("/joinProc")
-    public String dojoin(UserDto userDto, Model model) {
+    public String dojoin(@Validated UserDto userDto, Errors errors, Model model) {
+        if(errors.hasErrors()){
+            model.addAttribute("userDto",userDto);
+            Map<String,String> validatorResult = userService.validatedHandling(errors);
+            model.addAttribute("validatorResult",validatorResult);
+            return "/join";
+        }
+//
         try{
             User newUser = userService.dojoin(userDto);
             System.out.println("유저 아이디 생성 성공");

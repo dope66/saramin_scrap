@@ -10,7 +10,11 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.Errors;
+import org.springframework.validation.FieldError;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -47,6 +51,16 @@ public class UserService {
         Optional<User> user = userRepository.findByUsername(username);
         user.ifPresent(userRepository::delete);
     }
+    public Map<String ,String> validatedHandling(Errors errors){
+        Map<String, String> validatorResult = new HashMap<>();
+        for (FieldError error : errors.getFieldErrors()) {
+            String fieldName = error.getField();
+            String errorMessage = error.getDefaultMessage();
+            validatorResult.put(fieldName, errorMessage);
+        }
+        return validatorResult;
+    }
+
 
 
 }
